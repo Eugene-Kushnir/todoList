@@ -34,4 +34,47 @@ class ListController extends Controller
         return $request->all();
     }
 
+    public function search(Request $request)
+    {
+//        $task = Task::find($request->id);
+//        $task->task = $request->value;
+//        $task->save();
+        $term = $request->term;
+        $tasks = Task::where('task','LIKE','%'.$term.'%')->get();
+//        return $task;
+        if (count($tasks) == 0) {
+            $searchResult[] =  'No task found';
+        } else {
+            foreach ($tasks as $key=> $value) {
+                $searchResult[] = $value->task;
+            }
+        }
+
+        return $searchResult;
+//        return $availableTags = [
+//            "ActionScript",
+//            "AppleScript",
+//            "Asp",
+//            "BASIC",
+//            "C",
+//            "C++",
+//            "Clojure",
+//            "COBOL",
+//            "ColdFusion",
+//            "Erlang",
+//            "Fortran",
+//            "Groovy",
+//            "Haskell",
+//            "Java",
+//            "JavaScript",
+//            "Lisp",
+//            "Perl",
+//            "PHP",
+//            "Python",
+//            "Ruby",
+//            "Scala",
+//            "Scheme"
+//        ];
+    }
+
 }
